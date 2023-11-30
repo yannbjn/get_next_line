@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:33 by yabejani          #+#    #+#             */
-/*   Updated: 2023/11/30 15:15:12 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:35:56 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ char	*get_next_line(int fd)
 	line = ft_get_line(save);
 	printf("LINE de get line :%s", line);
 	save = ft_clean_save(save);
+	if (!save || save[0] == 0)
+		{
+			free(save);
+			return (NULL);
+		}
 	printf("SAVE de del first line :%s", save);
 	return (line);
 }
