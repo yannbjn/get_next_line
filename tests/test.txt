@@ -1,6 +1,5 @@
-Ceci est la premiere ligne
-Ceci est la deuxieme  deuxieme  deuxieme  deuxieme ligne
+Ali
+est
 
-Ceci est la quatrieme ligne
-Ceci est la cinquieme ligneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-
+Un ptit
+canard
