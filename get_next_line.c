@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:33 by yabejani          #+#    #+#             */
-/*   Updated: 2023/11/30 16:35:56 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:27:13 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_get_line(char *save)
 
 char	*ft_clean_save(char *save)
 {
-	char	*str;
+	char	*newsave;
 	int		i;
 	int		j;
 
@@ -79,17 +79,21 @@ char	*ft_clean_save(char *save)
 		free(save);
 		return (NULL);
 	}
-	str = malloc(sizeof(char) * (ft_strlen(save) - i + 1));
-	if (!str)
+	newsave = malloc(sizeof(char) * (ft_strlen(save) - i + 1));
+	if (!newsave)
+	{
+		free(newsave);
 		return (NULL);
+	}
 	i++;
 	j = 0;
 	while (save[i])
-		str[j++] = save[i++];
-	str[j] = '\0';
+		newsave[j++] = save[i++];
+	newsave[j] = '\0';
 	free(save);
-	return (str);
+	return (newsave);
 }
+
 #include <stdio.h>
 
 char	*get_next_line(int fd)
@@ -104,12 +108,17 @@ char	*get_next_line(int fd)
 	if (!save)
 		return (NULL);
 	line = ft_get_line(save);
+	if (!line || !line[0])
+	{
+		free(line);
+		return (NULL);
+	}
 	printf("LINE de get line :%s", line);
 	save = ft_clean_save(save);
 	if (!save || save[0] == 0)
 		{
 			free(save);
-			return (NULL);
+			save = NULL;
 		}
 	printf("SAVE de del first line :%s", save);
 	return (line);
