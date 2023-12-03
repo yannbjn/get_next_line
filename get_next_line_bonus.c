@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:30:15 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/01 13:06:23 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:11:38 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,82 @@ char	*get_next_line(int fd)
 		save[fd] = NULL;
 	}
 	return (line);
+}
+
+#include <fcntl.h>
+#include <stdio.h>
+
+int	main(void)
+{
+	char	*line;
+	int		fd1;
+	int		fd2;
+	int		fd3;
+
+	fd1 = open("tests/test.txt", O_RDONLY);
+	fd2 = open("tests/test2.txt", O_RDONLY);
+	fd3 = open("tests/test3.txt", O_RDONLY);
+	line = get_next_line(fd1);
+	printf("line 1 :%s", line);
+	free(line);
+
+	line = get_next_line(fd2);
+	printf("line 1 :%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("line 1 :%s", line);
+	free(line);
+
+	line = get_next_line(fd1);
+	printf("line 2 :%s", line);
+	free(line);
+
+	line = get_next_line(fd2);
+	printf("line 2 :%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("line 2 :%s", line);
+	free(line);
+
+	line = get_next_line(fd1);
+	printf("line 3 :%s", line);
+	free(line);
+
+	line = get_next_line(fd2);
+	printf("line 3 :%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("line 3 :%s", line);
+	free(line);
+
+	line = get_next_line(fd1);
+	printf("line 4 :%s", line);
+	free(line);
+
+	line = get_next_line(fd2);
+	printf("line 4 :%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("line 4 :%s", line);
+	free(line);
+
+	line = get_next_line(fd1);
+	printf("line 5 :%s", line);
+	free(line);
+
+	line = get_next_line(fd2);
+	printf("line 5 :%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("line 5 :%s", line);
+	free(line);
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	return (0);
 }
