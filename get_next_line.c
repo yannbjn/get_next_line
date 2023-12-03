@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:33 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/01 11:27:13 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:46:50 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*get_next_line(int fd)
 	if (!save)
 		return (NULL);
 	line = ft_get_line(save);
-	if (!line || !line[0])
+	if (!line || line[0] == 0)
 	{
 		free(line);
 		return (NULL);
@@ -130,29 +130,18 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	char	*line;
-	int		fd1;
-	
+	int	fd1;
+	int	i;
+
 	fd1 = open("tests/test.txt", O_RDONLY);
-	line = get_next_line(fd1);
-	printf("line 1 :%s", line);
-	free(line);
-	
-	line = get_next_line(fd1);
-	printf("line 2 :%s", line);
-	free(line);
-	
-	line = get_next_line(fd1);
-	printf("line 3 :%s", line);
-	free(line);
-	
-	line = get_next_line(fd1);
-	printf("line 4 :%s", line);
-	free(line);
-	
-	line = get_next_line(fd1);
-	printf("line 5 :%s", line);
-	free(line);
-	
+	i = 1;
+	while (i < 6)
+	{
+		line = get_next_line(fd1);
+		printf("line %d :%s", i, line);
+		free(line);
+		i++;
+	}
 	close(fd1);
 	return (0);
 }

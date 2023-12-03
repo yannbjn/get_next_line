@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:30:15 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/03 15:11:38 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:51:02 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,69 +126,25 @@ int	main(void)
 	int		fd1;
 	int		fd2;
 	int		fd3;
+	int		i;
 
 	fd1 = open("tests/test.txt", O_RDONLY);
 	fd2 = open("tests/test2.txt", O_RDONLY);
 	fd3 = open("tests/test3.txt", O_RDONLY);
-	line = get_next_line(fd1);
-	printf("line 1 :%s", line);
-	free(line);
-
-	line = get_next_line(fd2);
-	printf("line 1 :%s", line);
-	free(line);
-
-	line = get_next_line(fd3);
-	printf("line 1 :%s", line);
-	free(line);
-
-	line = get_next_line(fd1);
-	printf("line 2 :%s", line);
-	free(line);
-
-	line = get_next_line(fd2);
-	printf("line 2 :%s", line);
-	free(line);
-
-	line = get_next_line(fd3);
-	printf("line 2 :%s", line);
-	free(line);
-
-	line = get_next_line(fd1);
-	printf("line 3 :%s", line);
-	free(line);
-
-	line = get_next_line(fd2);
-	printf("line 3 :%s", line);
-	free(line);
-
-	line = get_next_line(fd3);
-	printf("line 3 :%s", line);
-	free(line);
-
-	line = get_next_line(fd1);
-	printf("line 4 :%s", line);
-	free(line);
-
-	line = get_next_line(fd2);
-	printf("line 4 :%s", line);
-	free(line);
-
-	line = get_next_line(fd3);
-	printf("line 4 :%s", line);
-	free(line);
-
-	line = get_next_line(fd1);
-	printf("line 5 :%s", line);
-	free(line);
-
-	line = get_next_line(fd2);
-	printf("line 5 :%s", line);
-	free(line);
-
-	line = get_next_line(fd3);
-	printf("line 5 :%s", line);
-	free(line);
+	i = 1;
+	while (i < 6)
+	{
+		line = get_next_line(fd1);
+		printf("line %d :%s", i, line);
+		free(line);
+		line = get_next_line(fd2);
+		printf("line %d :%s", i, line);
+		free(line);
+		line = get_next_line(fd3);
+		printf("line %d :%s", i, line);
+		free(line);
+		i++;
+	}
 	close(fd1);
 	close(fd2);
 	close(fd3);

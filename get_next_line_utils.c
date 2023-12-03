@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:43 by yabejani          #+#    #+#             */
-/*   Updated: 2023/11/21 14:01:55 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:28:50 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ char	*ft_strchr(char *str, int c)
 	if (!str)
 		return (0);
 	if (c == '\0')
-		return ((char *)&str[ft_strlen(str)]);
+		return ((char *) str + ft_strlen(str));
 	while (str[i])
 	{
 		if (str[i] == (char) c)
-			return ((char *)&str[i]);
+			return ((char *) str + i);
 		i++;
 	}
 	return (0);
