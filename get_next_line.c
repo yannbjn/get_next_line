@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:33 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/03 15:46:50 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:24:14 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char	*get_next_line(int fd)
 			free(save);
 			save = NULL;
 		}
-	printf("SAVE de del first line :%s", save);
+	printf("SAVE de clean save :%s", save);
 	return (line);
 }
 
