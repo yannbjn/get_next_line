@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:06:57 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/01 12:19:36 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:08:17 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char) * 1);
-		s1[0] = '\0';
-	}
 	if (!s1 || !s2)
 		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
@@ -56,13 +51,29 @@ char	*ft_strchr(char *str, int c)
 	i = 0;
 	if (!str)
 		return (0);
-	if (c == '\0')
-		return ((char *)&str[ft_strlen(str)]);
 	while (str[i])
 	{
-		if (str[i] == (char) c)
-			return ((char *)&str[i]);
+		if (str[i] == (char)c)
+			return ((char *)str + i);
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_strndup(char *str, int n)
+{
+	char	*dest;
+	int		i;
+
+	i = 0;
+	dest = malloc(sizeof(char) * (n + 1));
+	if (!dest)
+		return (NULL);
+	while (str[i] && i < n)
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

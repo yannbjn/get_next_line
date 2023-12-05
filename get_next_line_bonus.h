@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:18:49 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/01 13:04:41 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:47:52 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 size_t	ft_strlen(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *st, int c);
+char	*ft_strndup(char *str, int n);
 
 char	*get_next_line(int fd);
 char	*ft_get_line(char *save);

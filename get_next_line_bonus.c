@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:30:15 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/03 15:51:02 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:07:22 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,22 @@ char	*ft_read(int fd, char *save)
 	if (!tmp)
 		return (NULL);
 	readbytes = 1;
+	if (!save)
+	{
+		save = malloc(sizeof(char) * 1);
+		if (!save)
+			return (NULL);
+		save[0] = '\0';
+	}
 	while (!ft_strchr(save, '\n') && readbytes != 0)
 	{
 		readbytes = read(fd, tmp, BUFFER_SIZE);
 		if (readbytes == -1)
-		{
-			free(tmp);
-			tmp = NULL;
-			return (NULL);
-		}
+			return (free(tmp), free(save), NULL);
 		tmp[readbytes] = '\0';
 		save = ft_strjoin(save, tmp);
 	}
-	free(tmp);
-	return (save);
+	return (free(tmp), save);
 }
 
 char	*ft_get_line(char *save)
@@ -43,73 +45,58 @@ char	*ft_get_line(char *save)
 	int		i;
 
 	i = 0;
-	if (!save[i])
+	if (!save)
 		return (NULL);
 	while (save[i] && save[i] != '\n')
 		i++;
-	line = malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (save[i] && save[i] != '\n')
-	{
-		line[i] = save[i];
-		i++;
-	}
 	if (save[i] == '\n')
 	{
-		line[i] = save[i];
+		line = ft_strndup(save, i + 1);
 		i++;
 	}
-	line[i] = '\0';
+	else
+		line = ft_strndup(save, i);
 	return (line);
 }
 
 char	*ft_clean_save(char *save)
 {
-	char	*newsave;
 	int		i;
-	int		j;
+	int		len;
+	char	*newsave;
 
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
+	len = ft_strlen(save);
 	if (!save[i])
-	{
+		return (free(save), NULL);
+	newsave = ft_strndup((save + i + 1), (len - i));
+	if (newsave)
 		free(save);
-		save = NULL;
-		return (NULL);
-	}
-	newsave = malloc(sizeof(char) * (ft_strlen(save) - i + 1));
-	if (!newsave)
-		return (NULL);
-	i++;
-	j = 0;
-	while (save[i])
-		newsave[j++] = save[i++];
-	newsave[j] = '\0';
-	free(save);
 	return (newsave);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line;
 	static char	*save[4095];
+	char		*line;
 
+	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (0);
-	save[fd] = ft_read(fd, save[fd]);
-	if (!save[fd])
 		return (NULL);
-	line = ft_get_line(save[fd]);
-	if (!line || !line[0])
+	save[fd] = ft_read(fd, save[fd]);
+	if (!save[fd] || save[fd][0] == 0)
 	{
-		free(line);
+		free(save[fd]);
+		save[fd] = NULL;
 		return (NULL);
 	}
+	line = ft_get_line(save[fd]);
+	if (!line || line[0] == 0)
+		return (free(line), free(save[fd]), NULL);
 	save[fd] = ft_clean_save(save[fd]);
-	if (!save[fd] || save[fd][0] == 0)
+	if (save[fd] && save[fd][0] == 0)
 	{
 		free(save[fd]);
 		save[fd] = NULL;
@@ -117,36 +104,49 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-#include <fcntl.h>
-#include <stdio.h>
+// #include <fcntl.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	char	*line;
-	int		fd1;
-	int		fd2;
-	int		fd3;
-	int		i;
+// int	main(void)
+// {
+// 	char	*line;
+// 	int		fd1;
+// 	int		fd2;
+// 	int		fd3;
+// 	int		i;
 
-	fd1 = open("tests/test.txt", O_RDONLY);
-	fd2 = open("tests/test2.txt", O_RDONLY);
-	fd3 = open("tests/test3.txt", O_RDONLY);
-	i = 1;
-	while (i < 6)
-	{
-		line = get_next_line(fd1);
-		printf("line %d :%s", i, line);
-		free(line);
-		line = get_next_line(fd2);
-		printf("line %d :%s", i, line);
-		free(line);
-		line = get_next_line(fd3);
-		printf("line %d :%s", i, line);
-		free(line);
-		i++;
-	}
-	close(fd1);
-	close(fd2);
-	close(fd3);
-	return (0);
-}
+// 	fd1 = open("tests/test.txt", O_RDONLY);
+// 	fd2 = open("tests/test2.txt", O_RDONLY);
+// 	fd3 = open("tests/bible.txt", O_RDONLY);
+// 	i = 1;
+// 	while (i < 100183)
+// 	{
+// 		line = get_next_line(fd1);
+// 		printf("line %d :%s", i, line);
+// 		free(line);
+// 		line = get_next_line(fd2);
+// 		printf("line %d :%s", i, line);
+// 		free(line);
+// 		line = get_next_line(fd3);
+// 		printf("line %d :%s", i, line);
+// 		free(line);
+// 		i++;
+// 	}
+// 	close(fd1);
+// 	close(fd2);
+// 	close(fd3);
+// 	return (0);
+//  }
+// #include <stdio.h>
+// #include <fcntl.h>
+// int    main(int ac, char **av) {
+//     int fd = open(av[1], O_RDONLY);
+//     char *str;
+//     (void)ac;
+
+//     while ((str = get_next_line(fd))) {
+//         printf("%s", str);
+//         free(str);
+//     }
+//     free(str);
+// }
