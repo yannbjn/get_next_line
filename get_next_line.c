@@ -6,7 +6,7 @@
 /*   By: yabejani <yabejani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:22:33 by yabejani          #+#    #+#             */
-/*   Updated: 2023/12/05 15:03:55 by yabejani         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:41:19 by yabejani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ char	*ft_get_line(char *save)
 	while (save[i] && save[i] != '\n')
 		i++;
 	if (save[i] == '\n')
-	{
 		line = ft_strndup(save, i + 1);
-		i++;
-	}
 	else
 		line = ft_strndup(save, i);
 	return (line);
